@@ -1,0 +1,23 @@
+[project]
+name = "pbl5-doantotnghiep"
+version = "0.1.0"
+requires-python = ">=3.11,<3.13"
+
+dependencies = [
+    "numpy",
+    "pandas",
+    "scikit-learn",
+    "opencv-python-headless",
+    "tqdm",
+    "jupyter",
+    "ipykernel",
+    "rtmlib",
+    "onnxruntime-gpu[cuda,cudnn]==1.26.0",
+    "gdown>=6.4.0",
+    "nvidia-cudnn-cu12==9.7.1.26",
+]
+
+[tool.uv]
+exclude-dependencies = [
+    "onnxruntime",
+]

@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+data/
+processed/
+data.zip
+
+*.mp4
+*.avi
+*.mkv
+*.npy
+
+.env
+.fuse_hidden*
