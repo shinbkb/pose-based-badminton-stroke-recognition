@@ -10,7 +10,7 @@ data.zip
 *.mp4
 *.avi
 *.mkv
-*.npy
+
 
 .env
 .fuse_hidden*
