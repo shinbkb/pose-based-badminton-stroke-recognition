@@ -1,0 +1,19 @@
+class_id,class_name,class_dir
+0,Short Serve,00_Short Serve
+1,Cross Court Flight,01_Cross Court Flight
+2,Lift,02_Lift
+3,Tap Smash,03_Tap Smash
+4,Block,04_Block
+5,Drop Shot,05_Drop Shot
+6,Push Shot,06_Push Shot
+7,Transitional Slice,07_Transitional Slice
+8,Cut,08_Cut
+9,Rush Shot,09_Rush Shot
+10,Defensive Clear,10_Defensive Clear
+11,Defensive Drive,11_Defensive Drive
+12,Clear,12_Clear
+13,Long Serve,13_Long Serve
+14,Smash,14_Smash
+15,Flat Shot,15_Flat Shot
+16,Rear Court Flat Drive,16_Rear Court Flat Drive
+17,Short Flat Shot,17_Short Flat Shot
