@@ -14,10 +14,15 @@ dependencies = [
     "rtmlib",
     "onnxruntime-gpu[cuda,cudnn]==1.26.0",
     "gdown>=6.4.0",
-    "nvidia-cudnn-cu12==9.7.1.26",
+    "ultralytics>=8.4.175",
+    "torch==2.13.0",
+    "torchvision==0.28.0",
 ]
 
 [tool.uv]
 exclude-dependencies = [
     "onnxruntime",
 ]
+
+[[tool.uv.index]]
+url = "https://download.pytorch.org/whl/cu126"
