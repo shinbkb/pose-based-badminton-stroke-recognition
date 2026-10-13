@@ -1,0 +1,123 @@
+{
+  "00_Short Serve": {
+    "precision": 0.7374301675977654,
+    "recall": 1.0,
+    "f1-score": 0.8488745980707395,
+    "support": 132.0
+  },
+  "01_Cross Court Flight": {
+    "precision": 0.1111111111111111,
+    "recall": 0.05714285714285714,
+    "f1-score": 0.07547169811320754,
+    "support": 35.0
+  },
+  "02_Lift": {
+    "precision": 0.6436781609195402,
+    "recall": 0.4409448818897638,
+    "f1-score": 0.5233644859813084,
+    "support": 127.0
+  },
+  "03_Tap Smash": {
+    "precision": 0.1111111111111111,
+    "recall": 0.09523809523809523,
+    "f1-score": 0.10256410256410256,
+    "support": 21.0
+  },
+  "04_Block": {
+    "precision": 0.41379310344827586,
+    "recall": 0.4067796610169492,
+    "f1-score": 0.41025641025641024,
+    "support": 59.0
+  },
+  "05_Drop Shot": {
+    "precision": 0.437125748502994,
+    "recall": 0.5983606557377049,
+    "f1-score": 0.5051903114186851,
+    "support": 122.0
+  },
+  "06_Push Shot": {
+    "precision": 0.43333333333333335,
+    "recall": 0.5098039215686274,
+    "f1-score": 0.46846846846846846,
+    "support": 51.0
+  },
+  "07_Transitional Slice": {
+    "precision": 0.3,
+    "recall": 0.16666666666666666,
+    "f1-score": 0.21428571428571427,
+    "support": 18.0
+  },
+  "08_Cut": {
+    "precision": 0.5841584158415841,
+    "recall": 0.5841584158415841,
+    "f1-score": 0.5841584158415841,
+    "support": 101.0
+  },
+  "09_Rush Shot": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1-score": 0.0,
+    "support": 6.0
+  },
+  "10_Defensive Clear": {
+    "precision": 0.1,
+    "recall": 0.2222222222222222,
+    "f1-score": 0.13793103448275862,
+    "support": 9.0
+  },
+  "11_Defensive Drive": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1-score": 0.0,
+    "support": 0.0
+  },
+  "12_Clear": {
+    "precision": 0.8421052631578947,
+    "recall": 0.6713286713286714,
+    "f1-score": 0.7470817120622568,
+    "support": 143.0
+  },
+  "13_Long Serve": {
+    "precision": 0.7950310559006211,
+    "recall": 0.8533333333333334,
+    "f1-score": 0.8231511254019293,
+    "support": 150.0
+  },
+  "14_Smash": {
+    "precision": 0.7685185185185185,
+    "recall": 0.6974789915966386,
+    "f1-score": 0.7312775330396476,
+    "support": 119.0
+  },
+  "15_Flat Shot": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1-score": 0.0,
+    "support": 30.0
+  },
+  "16_Rear Court Flat Drive": {
+    "precision": 0.3409090909090909,
+    "recall": 0.625,
+    "f1-score": 0.4411764705882353,
+    "support": 24.0
+  },
+  "17_Short Flat Shot": {
+    "precision": 0.6,
+    "recall": 0.2727272727272727,
+    "f1-score": 0.375,
+    "support": 33.0
+  },
+  "accuracy": 0.6016949152542372,
+  "macro avg": {
+    "precision": 0.40101694890843553,
+    "recall": 0.4000658692394659,
+    "f1-score": 0.3882362266986138,
+    "support": 1180.0
+  },
+  "weighted avg": {
+    "precision": 0.6013258458516239,
+    "recall": 0.6016949152542372,
+    "f1-score": 0.591045311755413,
+    "support": 1180.0
+  }
+}
