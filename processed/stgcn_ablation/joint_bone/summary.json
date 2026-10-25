@@ -1,0 +1,10 @@
+{
+  "experiment": "joint_bone",
+  "input_channels": 9,
+  "num_persons": 2,
+  "best_epoch": 20,
+  "best_val_macro_f1": 0.31942108044294804,
+  "test_accuracy": 0.5059322033898305,
+  "test_macro_f1": 0.324022690444034,
+  "test_weighted_f1": 0.4748897423643431
+}

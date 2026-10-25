@@ -1,0 +1,2 @@
+experiment,input_channels,num_persons,best_epoch,best_val_macro_f1,test_accuracy,test_macro_f1,test_weighted_f1
+joint_bone,9,2,20,0.31942108044294804,0.5059322033898305,0.324022690444034,0.4748897423643431

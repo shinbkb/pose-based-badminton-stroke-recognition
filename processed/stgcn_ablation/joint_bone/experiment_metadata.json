@@ -1,0 +1,51 @@
+{
+  "model": "ST-GCN V2",
+  "experiment": "joint_bone",
+  "experiment_config": {
+    "bone": true,
+    "hitter_only": false,
+    "position": false,
+    "shuttle": false
+  },
+  "input_features": [
+    "normalized_x",
+    "normalized_y",
+    "confidence",
+    "motion_x",
+    "motion_y",
+    "bone_x",
+    "bone_y",
+    "bone_motion_x",
+    "bone_motion_y"
+  ],
+  "input_channels": 9,
+  "target_frames": 64,
+  "num_joints": 17,
+  "num_persons": 2,
+  "num_classes": 18,
+  "class_names": [
+    "00_Short Serve",
+    "01_Cross Court Flight",
+    "02_Lift",
+    "03_Tap Smash",
+    "04_Block",
+    "05_Drop Shot",
+    "06_Push Shot",
+    "07_Transitional Slice",
+    "08_Cut",
+    "09_Rush Shot",
+    "10_Defensive Clear",
+    "11_Defensive Drive",
+    "12_Clear",
+    "13_Long Serve",
+    "14_Smash",
+    "15_Flat Shot",
+    "16_Rear Court Flat Drive",
+    "17_Short Flat Shot"
+  ],
+  "best_epoch": 20,
+  "best_val_macro_f1": 0.31942108044294804,
+  "test_accuracy": 0.5059322033898305,
+  "test_macro_f1": 0.324022690444034,
+  "seed": 42
+}
