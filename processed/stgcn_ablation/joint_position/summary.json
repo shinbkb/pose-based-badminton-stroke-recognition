@@ -1,0 +1,10 @@
+{
+  "experiment": "joint_position",
+  "input_channels": 8,
+  "num_persons": 2,
+  "best_epoch": 50,
+  "best_val_macro_f1": 0.42854275601372027,
+  "test_accuracy": 0.5754237288135593,
+  "test_macro_f1": 0.40758339419028666,
+  "test_weighted_f1": 0.5654076101494471
+}

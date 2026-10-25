@@ -1,0 +1,10 @@
+{
+  "experiment": "joint_baseline",
+  "input_channels": 5,
+  "num_persons": 2,
+  "best_epoch": 75,
+  "best_val_macro_f1": 0.36995126331789857,
+  "test_accuracy": 0.5415254237288135,
+  "test_macro_f1": 0.3770620573975687,
+  "test_weighted_f1": 0.5414357796405328
+}

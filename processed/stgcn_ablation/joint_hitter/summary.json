@@ -1,0 +1,10 @@
+{
+  "experiment": "joint_hitter",
+  "input_channels": 5,
+  "num_persons": 1,
+  "best_epoch": 21,
+  "best_val_macro_f1": 0.332019354641653,
+  "test_accuracy": 0.5813559322033899,
+  "test_macro_f1": 0.3652737385401119,
+  "test_weighted_f1": 0.5762003296154145
+}
