@@ -1,192 +1,97 @@
 # Pose-Based Badminton Stroke Recognition
 
-A pose-based badminton stroke classification project using human joint sequences extracted from video and Transformer-based models.
+Nhận dạng 18 động tác cầu lông từ chuỗi khớp người. Dự án có pipeline RTMPose/YOLO26 → pose 2D → MotionBERT pose 3D → ST-GCN, cùng các thí nghiệm ablation.
 
-## Project status
-
-The project currently provides the data preprocessing and human pose extraction pipeline. Model training and evaluation will be added in later stages.
-
-## Overview
-
-The pipeline converts badminton video clips into skeleton sequences that can be used as input for stroke classification models.
+## Cấu trúc dự án
 
 ```text
-Video clips
-    ↓
-Dataset manifest
-    ↓
-Train / validation / test split
-    ↓
-Human pose extraction with RTMPose
-    ↓
-Skeleton arrays (.npy)
-    ↓
-Transformer-based stroke classification
-```
-
-## Pose representation
-
-Each processed video is stored as a NumPy array with the following shape:
-
-```text
-(T, 2, 17, 2)
-```
-
-Where:
-
-- `T`: number of video frames
-- `2`: maximum number of players
-- `17`: COCO human body joints
-- `2`: joint coordinates `(x, y)`
-
-The pose extraction pipeline uses:
-
-- [RTMLib](https://github.com/Tau-J/rtmlib)
-- RTMPose
-- ONNX Runtime GPU
-- OpenCV
-
-## Current preprocessing result
-
-| Item | Count |
-|---|---:|
-| Total video clips | 7,821 |
-| Successfully processed | 7,818 |
-| Unreadable videos | 3 |
-| Valid joint files | 7,818 |
-| Invalid joint files | 0 |
-
-All generated joint files were validated for the expected shape `(T, 2, 17, 2)`.
-
-## Repository structure
-
-```text
-.
-├── notebook/
-│   └── data-preprocessing.ipynb
-├── .gitignore
+badminton-stroke/
+├── notebooks/                         # Khám phá, trực quan hóa và cấu hình thí nghiệm
+│   ├── data-preprocessing.ipynb
+│   ├── yolov26pose.ipynb
+│   ├── motionbert_3d_extraction.ipynb
+│   ├── stgcn_experiments.ipynb
+│   ├── stgcn_experiments_motionbert.ipynb
+│   └── stgcn_ablation.ipynb
+├── src/badminton_stroke/              # Mã Python dùng lại
+│   ├── paths.py                       # Đường dẫn dự án tập trung
+│   ├── dataset.py                     # Dataset, augmentation và DataLoader
+│   └── models/
+│       ├── graphs.py                  # Đồ thị COCO và H36M
+│       └── stgcn.py                   # SpatialGraphConv, STGCNBlock, STGCNV2
+├── scripts/                           # Pipeline dữ liệu và trích xuất pose
+│   ├── preprocess_data.py
+│   ├── extract_yolo_pose.py
+│   └── extract_motionbert_3d.py
+├── experiments/                       # Chạy huấn luyện và đánh giá
+│   ├── train_stgcn.py
+│   ├── train_stgcn_motionbert.py
+│   ├── run_stgcn_ablation.py
+│   └── runs/                          # Kết quả mới, checkpoint và biểu đồ
+├── models/                            # Trọng số đầu vào; yolo26s-pose.pt
+├── data/                              # Video gốc (local)
+├── processed/                         # Manifest, pose, confidence và kết quả cũ
+├── third_party/MotionBERT/            # Mã, cấu hình và checkpoint MotionBERT
+├── tools/export_notebooks.py          # Xuất và kiểm tra đồng bộ notebook → Python
+├── tests/test_project_structure.py
+├── docs/project_structure.md
+├── dataset.py                         # Import tương thích cho mã cũ
 ├── pyproject.toml
-├── uv.lock
-└── README.md
+└── uv.lock
 ```
 
-Large files are excluded from Git:
+Dữ liệu và kết quả cũ được giữ nguyên tại `processed/`; các lần huấn luyện mới ghi vào `experiments/runs/`. Việc tổ chức lại không xóa dữ liệu hoặc lịch sử Git.
 
-```text
-data/
-processed/
-*.zip
-*.mp4
-*.npy
-.venv/
-```
+## Môi trường
 
-## Requirements
-
-- Python 3.11
-- [uv](https://docs.astral.sh/uv/)
-- NVIDIA GPU
-- CUDA-compatible NVIDIA driver
-
-The current environment uses a Tesla V100 GPU. cuDNN is pinned to version `9.7.1.26` to retain support for the Volta architecture.
-
-## Installation
-
-Clone the repository:
+Python 3.11–3.12; dùng môi trường và phiên bản phụ thuộc trong `pyproject.toml` / `uv.lock`:
 
 ```bash
-git clone git@github.com:shinbkb/pose-based-badminton-stroke-recognition.git
-cd pose-based-badminton-stroke-recognition
-```
-
-Create and synchronize the environment:
-
-```bash
-uv sync
-```
-
-Activate the environment:
-
-```bash
+uv sync --frozen
 source .venv/bin/activate
+python -m jupyter lab
 ```
 
-Register the Jupyter kernel:
+Mở notebook từ thư mục gốc hoặc `notebooks/`. Đường dẫn dữ liệu được tính từ vị trí source thay vì đường dẫn riêng của máy. Script có thể chạy bằng đường dẫn tuyệt đối từ thư mục khác.
+
+## Chạy pipeline
+
+Đặt dataset video theo lớp trong `data/`, với thư mục tên `VideoBadminton_Dataset`. Chạy lần lượt:
 
 ```bash
-python -m ipykernel install \
-  --user \
-  --name badminton-stroke \
-  --display-name "Python (Badminton Stroke)"
+python scripts/preprocess_data.py --non-interactive
+python scripts/extract_yolo_pose.py --non-interactive
+python scripts/extract_motionbert_3d.py --non-interactive
+python experiments/train_stgcn_motionbert.py --non-interactive
 ```
 
-Start Jupyter:
+`preprocess_data.py` kế thừa cả phần tạo manifest và trích xuất RTMPose từ notebook gốc. Nếu chưa có `data.zip`, cần điền `GOOGLE_DRIVE_DATA_URL` trong notebook và xuất lại script. Với dữ liệu đã có, bước tải vẫn kiểm tra archive như notebook gốc; đọc hướng dẫn trong notebook trước khi chạy toàn bộ.
+
+Trích xuất MotionBERT yêu cầu mã nguồn, cấu hình và checkpoint có sẵn trong `third_party/MotionBERT/`, cùng joints/confidence YOLO 2D trong `processed/`.
+
+Các thí nghiệm khác:
 
 ```bash
-uv run jupyter lab
+python experiments/train_stgcn.py --non-interactive
+python experiments/run_stgcn_ablation.py --non-interactive
 ```
 
-## Data preparation
+Các script giữ thứ tự cell, bước thử mẫu, benchmark, biểu đồ và vòng lặp xử lý của notebook; chạy script sẽ chạy toàn bộ workflow. Tham số mô hình, số epoch và `EXPERIMENT_NAME` hiện vẫn được cấu hình trong notebook. `--non-interactive` chọn backend biểu đồ Agg; `--help` chỉ hiển thị hướng dẫn và không chạy pipeline.
 
-Place the video dataset under the local `data/` directory. The dataset is not included in this repository because of its size and distribution terms.
+## Cập nhật mã và kiểm tra
 
-The videos are expected to be grouped by stroke class:
+Mô hình và đường dẫn dùng chung được sửa trực tiếp trong `src/badminton_stroke/`. Các workflow được sửa trong notebook rồi xuất lại:
 
-```text
-data/
-└── VideoBadminton_Dataset/
-    ├── 00_Short Serve/
-    │   ├── clip_001.mp4
-    │   └── ...
-    ├── 01_.../
-    └── ...
+```bash
+python tools/export_notebooks.py
+python tools/export_notebooks.py --check
+python -m unittest discover -s tests -v
 ```
 
-Run the cells in:
+Để import package trong mã riêng mà chưa cài package, thêm `src/` vào `PYTHONPATH`:
 
-```text
-notebook/data-preprocessing.ipynb
+```bash
+PYTHONPATH=src python -c 'from badminton_stroke.models.stgcn import STGCNV2'
 ```
 
-The notebook performs:
-
-1. Dataset discovery
-2. Video validation
-3. Class mapping
-4. Manifest generation
-5. Train, validation and test splitting
-6. RTMPose initialization
-7. Joint extraction
-8. Extraction status tracking
-9. Joint file validation
-
-## Resume support
-
-Joint extraction can continue safely after interruption. If a valid output file already exists, the notebook skips that video instead of processing it again.
-
-Extraction progress is recorded in:
-
-```text
-processed/joint_extraction_status.csv
-```
-
-Generated skeleton data is stored under:
-
-```text
-processed/joints_npy_balanced/
-```
-
-## Planned work
-
-- Player position extraction
-- Shuttlecock trajectory extraction
-- Sequence normalization
-- Transformer model implementation
-- Training and evaluation
-- Inference on unseen videos
-
-## Author
-
-**Khac Binh**
-
-GitHub: [@shinbkb](https://github.com/shinbkb)
+Chi tiết quy ước: [docs/project_structure.md](docs/project_structure.md).
